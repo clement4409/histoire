@@ -1,0 +1,789 @@
+<title>Krach de 1929</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#F1F2F0;
+  --surface:#FBFBFA;
+  --raise:#FFFFFF;
+  --ink:#16191D;
+  --ink-soft:#495059;
+  --ink-faint:#767E87;
+  --rule:#D5D8D5;
+  --rule-strong:#A9AEAC;
+  --accent:#8E2436;
+  --accent-soft:#F2E0E2;
+  --accent-ink:#8E2436;
+  --steel:#2F556E;
+  --steel-soft:#E1E9EE;
+  --ok:#2F6B4F;
+  --shadow:0 1px 2px rgba(20,25,30,.06),0 8px 24px rgba(20,25,30,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131619;
+    --surface:#1B1F23;
+    --raise:#22272C;
+    --ink:#E9EAE7;
+    --ink-soft:#ADB4B9;
+    --ink-faint:#828A90;
+    --rule:#31373C;
+    --rule-strong:#4C545A;
+    --accent:#E58090;
+    --accent-soft:#39222A;
+    --accent-ink:#F0A3AF;
+    --steel:#93BAD2;
+    --steel-soft:#1E2B33;
+    --ok:#7FBF9C;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131619;
+  --surface:#1B1F23;
+  --raise:#22272C;
+  --ink:#E9EAE7;
+  --ink-soft:#ADB4B9;
+  --ink-faint:#828A90;
+  --rule:#31373C;
+  --rule-strong:#4C545A;
+  --accent:#E58090;
+  --accent-soft:#39222A;
+  --accent-ink:#F0A3AF;
+  --steel:#93BAD2;
+  --steel-soft:#1E2B33;
+  --ok:#7FBF9C;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.28);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased;
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- barre de navigation ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.topbar-in{
+  max-width:1180px;margin:0 auto;padding:10px 24px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.brand{
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  font-size:1.15rem;white-space:nowrap;
+}
+.brand span{color:var(--accent-ink)}
+.tools{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.search{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--rule);
+  padding:6px 12px;border-radius:999px;
+}
+.search input{
+  border:0;background:transparent;color:var(--ink);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.78rem;
+  width:150px;outline:none;
+}
+.search input::placeholder{color:var(--ink-faint)}
+.btn{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--surface);color:var(--ink-soft);
+  border:1px solid var(--rule);border-radius:999px;
+  padding:7px 14px;cursor:pointer;transition:all .15s;
+}
+.btn:hover{border-color:var(--rule-strong);color:var(--ink)}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--raise)}
+:root[data-theme="dark"] .btn[aria-pressed="true"],
+:root:not([data-theme="light"]) .btn[aria-pressed="true"]{color:#131619}
+.progress-track{height:3px;background:var(--rule)}
+.progress-bar{height:100%;width:0;background:var(--accent);transition:width .25s}
+
+.layout{max-width:1180px;margin:0 auto;padding:0 24px 110px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:0 56px}
+
+/* ---------- sommaire ---------- */
+.toc{position:relative}
+.toc-in{position:sticky;top:96px;padding-top:44px}
+.toc h2{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 12px;font-weight:500;
+}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.toc a{
+  display:flex;gap:10px;align-items:baseline;
+  text-decoration:none;color:var(--ink-soft);
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  font-size:1.02rem;letter-spacing:.01em;
+  padding:6px 10px;border-left:2px solid transparent;border-radius:0 4px 4px 0;
+  transition:all .15s;
+}
+.toc a:hover{background:var(--surface);color:var(--ink)}
+.toc a .n{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--ink-faint)}
+.toc a.on{border-left-color:var(--accent);color:var(--ink);font-weight:600;background:var(--surface)}
+.toc a.on .n{color:var(--accent-ink)}
+.toc a.done .n::after{content:"\2713";color:var(--ok);margin-left:4px}
+.toc-foot{
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--ink-faint);
+  line-height:1.6;
+}
+
+/* ---------- en-tête ---------- */
+.masthead{padding:52px 0 20px;border-bottom:3px solid var(--ink)}
+.kicker{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent-ink);margin:0 0 16px;
+}
+.masthead h1{
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  font-weight:700;font-size:clamp(2.7rem,8vw,5.4rem);line-height:.94;
+  text-transform:uppercase;margin:0;text-wrap:balance;
+}
+.masthead h1 em{font-style:normal;color:var(--accent-ink)}
+.standfirst{margin:20px 0 0;max-width:60ch;font-size:1.1rem;color:var(--ink-soft)}
+.meta-bar{
+  display:flex;flex-wrap:wrap;gap:6px 26px;padding:12px 0;
+  border-bottom:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);
+}
+
+/* ---------- sections ---------- */
+section{padding:40px 0;border-top:1px solid var(--rule)}
+section:first-of-type{border-top:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px}
+.sec-head .num{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--accent-ink);
+  letter-spacing:.12em;padding-top:11px;
+}
+.sec-head h2{
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  font-weight:700;text-transform:uppercase;font-size:clamp(1.7rem,4vw,2.4rem);
+  line-height:1.05;margin:0;flex:1;text-wrap:balance;
+}
+.check{
+  display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-faint);
+  border:1px solid var(--rule);border-radius:999px;padding:6px 12px;
+  white-space:nowrap;margin-top:6px;transition:all .15s;user-select:none;
+}
+.check:hover{border-color:var(--rule-strong)}
+.check input{accent-color:var(--ok);margin:0;cursor:pointer}
+.check.done{color:var(--ok);border-color:var(--ok)}
+.sec-sub{margin:0 0 26px 40px;color:var(--ink-faint);font-style:italic;max-width:60ch}
+
+.body{display:flex;flex-direction:column;gap:24px;max-width:72ch}
+.body > *{margin:0}
+.body p{margin:0}
+
+h3{
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  font-size:1.25rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--steel);margin:0;
+  display:flex;align-items:center;gap:12px;
+}
+h3::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+ul{margin:0;padding-left:1.2em}
+li{margin-bottom:9px}
+li::marker{color:var(--rule-strong)}
+strong{font-weight:600}
+.term{font-weight:600;background:var(--accent-soft);padding:1px 4px;border-radius:2px}
+
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:22px 24px}
+.card h4{
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  text-transform:uppercase;letter-spacing:.05em;font-size:1.08rem;
+  font-weight:600;margin:0 0 10px;
+}
+.card p{margin:0}
+.card ul{margin:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.warn{border-color:var(--accent);background:var(--accent-soft)}
+.warn h4{color:var(--accent-ink)}
+
+/* définitions dépliables */
+.defs{display:flex;flex-direction:column;gap:8px}
+details.def{border:1px solid var(--rule);border-radius:4px;background:var(--surface);overflow:hidden}
+details.def summary{
+  cursor:pointer;list-style:none;padding:13px 18px;
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  text-transform:uppercase;letter-spacing:.04em;font-size:1.08rem;font-weight:600;
+  display:flex;align-items:center;gap:12px;
+}
+details.def summary::-webkit-details-marker{display:none}
+details.def summary::before{
+  content:"+";font-family:"IBM Plex Mono",monospace;font-size:.95rem;
+  color:var(--accent-ink);width:14px;flex:none;
+}
+details.def[open] summary::before{content:"\2212"}
+details.def summary:hover{background:var(--raise)}
+details.def .in{padding:0 18px 16px 44px;color:var(--ink-soft);font-size:.98rem}
+
+/* chiffres */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.stat{background:var(--surface);padding:20px 16px}
+.stat .n{
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  font-size:2.4rem;font-weight:700;line-height:1;color:var(--accent-ink);
+  font-variant-numeric:tabular-nums;
+}
+.stat .l{display:block;margin-top:8px;font-size:.82rem;color:var(--ink-soft);line-height:1.45}
+
+/* chronologie */
+.chrono{border-top:1px solid var(--rule)}
+.chrono-row{display:grid;grid-template-columns:132px 1fr;gap:20px;padding:12px 8px;border-bottom:1px solid var(--rule);transition:background .15s}
+.chrono-row:hover{background:var(--surface)}
+.chrono-row .d{
+  font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--steel);
+  font-variant-numeric:tabular-nums;padding-top:4px;font-weight:500;
+}
+.chrono-row .e{font-size:.99rem}
+.chrono-row.key{background:var(--accent-soft)}
+.chrono-row.key .d{color:var(--accent-ink);font-weight:600}
+
+/* tableau */
+.tbl-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:4px}
+table{border-collapse:collapse;width:100%;min-width:640px;background:var(--surface)}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top;font-size:.94rem}
+th{
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  text-transform:uppercase;letter-spacing:.05em;font-size:.95rem;font-weight:600;
+  background:var(--steel-soft);position:sticky;top:0;
+}
+td:first-child{font-weight:600;white-space:nowrap}
+tbody tr:hover{background:var(--raise)}
+tr:last-child td{border-bottom:none}
+
+blockquote{
+  margin:0;padding:2px 0 2px 22px;border-left:3px solid var(--steel);
+  font-size:1.08rem;font-style:italic;
+}
+blockquote cite{
+  display:block;margin-top:8px;font-style:normal;
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);
+}
+
+/* ---------- quiz ---------- */
+.quiz{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.flash{
+  background:var(--surface);border:1px solid var(--rule);border-radius:6px;
+  padding:18px 20px;cursor:pointer;text-align:left;font:inherit;color:inherit;
+  display:flex;flex-direction:column;gap:12px;transition:all .18s;
+}
+.flash:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-2px)}
+.flash .q{font-weight:600;font-size:1rem;line-height:1.5}
+.flash .a{
+  display:none;font-size:.94rem;color:var(--ink-soft);
+  border-top:1px dashed var(--rule);padding-top:11px;
+}
+.flash.open .a{display:block}
+.flash .hint{
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-faint);
+}
+.flash.open .hint{color:var(--accent-ink)}
+
+/* recherche */
+body.filtering section:not(.hit){display:none}
+.no-hit{
+  display:none;padding:40px 0;color:var(--ink-faint);font-style:italic;
+}
+body.filtering .no-hit.show{display:block}
+mark{background:var(--accent-soft);color:var(--ink);padding:0 2px;border-radius:2px}
+
+footer{
+  border-top:3px solid var(--ink);margin-top:48px;padding-top:18px;
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  color:var(--ink-faint);letter-spacing:.06em;
+}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .toc{position:static;border-bottom:1px solid var(--rule)}
+  .toc-in{position:static;padding:22px 0 18px}
+  .toc ol{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .toc a{border-left:0;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;font-size:.92rem}
+  .toc a.on{border-color:var(--accent)}
+  .toc-foot{display:none}
+  .search input{width:110px}
+  .chrono-row{grid-template-columns:100px 1fr;gap:14px}
+  .sec-sub{margin-left:0}
+  body{font-size:17px}
+}
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">1929 &middot; <span>Fiche de r&eacute;vision</span></div>
+    <div class="tools">
+      <label class="search">
+        <span aria-hidden="true" style="color:var(--ink-faint);font-size:.8rem">&#9906;</span>
+        <input id="q" type="search" placeholder="Rechercher..." aria-label="Rechercher dans la fiche">
+      </label>
+      <button class="btn" id="expand" type="button" aria-pressed="false">Tout d&eacute;plier</button>
+      <button class="btn" id="reset" type="button">R&eacute;initialiser</button>
+    </div>
+  </div>
+  <div class="progress-track"><div class="progress-bar" id="bar"></div></div>
+</div>
+
+<div class="layout">
+
+<nav class="toc" aria-label="Sommaire">
+  <div class="toc-in">
+    <h2>Sommaire</h2>
+    <ol id="toc-list"></ol>
+    <p class="toc-foot"><span id="count">0 / 8</span> parties r&eacute;vis&eacute;es.<br>Coche une partie quand tu la sais : ta progression est gard&eacute;e sur cet appareil.</p>
+  </div>
+</nav>
+
+<main>
+
+<header class="masthead">
+  <p class="kicker">Terminale &middot; Histoire &middot; Crise des ann&eacute;es 1930</p>
+  <h1>Le krach de <em>1929</em><br>et le monde en crise</h1>
+  <p class="standfirst">Comment l'effondrement d'une bourse new-yorkaise est devenu une d&eacute;pression mondiale &mdash; et comment les &Eacute;tats ont tent&eacute;, avec des fortunes tr&egrave;s in&eacute;gales, d'y r&eacute;pondre.</p>
+</header>
+<div class="meta-bar">
+  <span>1929 &rarr; 1939</span>
+  <span>&Eacute;tats-Unis &middot; Europe &middot; Am&eacute;rique latine</span>
+  <span>New Deal &middot; Front populaire</span>
+</div>
+
+<section id="s1" data-title="Les &Eacute;tats-Unis avant le krach">
+  <div class="sec-head">
+    <span class="num">01</span>
+    <h2>Les &Eacute;tats-Unis avant le krach</h2>
+    <label class="check"><input type="checkbox" data-sec="s1"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">Une prosp&eacute;rit&eacute; r&eacute;elle, mais construite sur du sable.</p>
+  <div class="body">
+    <h3>Une d&eacute;cennie d'euphorie</h3>
+    <ul>
+      <li>Les &Eacute;tats-Unis sortent de la Grande Guerre en <strong>cr&eacute;anciers du monde</strong> : ils d&eacute;tiennent l'essentiel des r&eacute;serves d'or et pr&ecirc;tent massivement &agrave; l'Europe (plan Dawes, 1924).</li>
+      <li><strong>R&eacute;volution productive</strong> : taylorisme et fordisme, travail &agrave; la cha&icirc;ne, baisse des co&ucirc;ts. La Ford T devient accessible ; automobile, &eacute;lectrom&eacute;nager et radio cr&eacute;ent une <span class="term">soci&eacute;t&eacute; de consommation</span> de masse.</li>
+      <li>Moteurs de la demande : la <strong>publicit&eacute;</strong> et surtout le <strong>cr&eacute;dit &agrave; la consommation</strong> (pr&egrave;s de 60 % des automobiles achet&eacute;es &agrave; cr&eacute;dit).</li>
+    </ul>
+
+    <h3>Les fragilit&eacute;s masqu&eacute;es</h3>
+    <ul>
+      <li><strong>Surproduction</strong> : la production cro&icirc;t plus vite que les salaires r&eacute;els. Les stocks s'accumulent d&egrave;s 1927-1928.</li>
+      <li><strong>Crise agricole latente</strong> : les paysans, endett&eacute;s depuis la chute des prix agricoles de l'apr&egrave;s-guerre, sont exclus de la prosp&eacute;rit&eacute;.</li>
+      <li><strong>Sp&eacute;culation boursi&egrave;re</strong> : on ach&egrave;te des actions <em>on margin</em>, en n'apportant que 10 % de la somme, le reste emprunt&eacute; &agrave; la banque. Le Dow Jones triple entre 1926 et 1929, sans rapport avec les profits r&eacute;els.</li>
+      <li><strong>Syst&egrave;me bancaire &eacute;clat&eacute;</strong> : environ 25 000 banques, souvent petites et locales, sans garantie des d&eacute;p&ocirc;ts, et sp&eacute;culant elles-m&ecirc;mes en bourse.</li>
+    </ul>
+
+    <div class="defs">
+      <details class="def"><summary>Sp&eacute;culation</summary><div class="in">Achat d'un bien (ici une action) non pour son rendement mais dans l'espoir de le revendre plus cher. Elle gonfle une <strong>bulle</strong> : un prix d&eacute;connect&eacute; de la valeur r&eacute;elle de l'entreprise.</div></details>
+      <details class="def"><summary>Achat &agrave; la marge (on margin)</summary><div class="in">Achat d'actions financ&eacute; par emprunt, gag&eacute; sur les actions elles-m&ecirc;mes. Tant que les cours montent, tout le monde gagne ; d&egrave;s qu'ils baissent, la banque r&eacute;clame son d&ucirc; et l'acheteur doit vendre &mdash; ce qui fait baisser encore les cours.</div></details>
+    </div>
+  </div>
+</section>
+
+<section id="s2" data-title="Le krach d'octobre 1929">
+  <div class="sec-head">
+    <span class="num">02</span>
+    <h2>Le krach d'octobre 1929</h2>
+    <label class="check"><input type="checkbox" data-sec="s2"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">Quelques jours &agrave; Wall Street, dix ans de cons&eacute;quences.</p>
+  <div class="body">
+    <div class="chrono">
+      <div class="chrono-row"><div class="d">3 sept. 1929</div><div class="e">Le Dow Jones atteint son sommet historique (381 points). Quelques initi&eacute;s commencent &agrave; vendre.</div></div>
+      <div class="chrono-row key"><div class="d">Jeu. 24 oct.</div><div class="e"><strong>Jeudi noir</strong> : pr&egrave;s de 13 millions de titres jet&eacute;s sur le march&eacute;. Les grandes banques rach&egrave;tent pour soutenir les cours : l'effet ne dure qu'un jour.</div></div>
+      <div class="chrono-row key"><div class="d">Mar. 29 oct.</div><div class="e"><strong>Mardi noir</strong> : 16 millions de titres vendus, panique totale, aucun acheteur. C'est le krach proprement dit.</div></div>
+      <div class="chrono-row"><div class="d">1929 &rarr; 1932</div><div class="e">Le Dow Jones s'effondre de 381 &agrave; 41 points, soit une perte d'environ <strong>90 %</strong> de la valeur.</div></div>
+      <div class="chrono-row"><div class="d">1930-1933</div><div class="e">Vagues de <strong>faillites bancaires</strong> : pr&egrave;s de 9 000 banques disparaissent, les &eacute;pargnants sont ruin&eacute;s, le cr&eacute;dit se tarit.</div></div>
+    </div>
+
+    <h3>L'encha&icirc;nement &agrave; savoir restituer</h3>
+    <ul>
+      <li>Krach &rarr; ruine des sp&eacute;culateurs et <strong>panique bancaire</strong> (les &eacute;pargnants retirent leurs d&eacute;p&ocirc;ts).</li>
+      <li>Faillites bancaires &rarr; <strong>effondrement du cr&eacute;dit</strong> &rarr; les entreprises ne peuvent plus investir ni se financer.</li>
+      <li>Faillites industrielles &rarr; <strong>ch&ocirc;mage de masse</strong> &rarr; chute de la consommation &rarr; nouvelle baisse de la production : c'est la <span class="term">spirale d&eacute;flationniste</span>.</li>
+      <li>Baisse des prix &rarr; les dettes deviennent plus lourdes en valeur r&eacute;elle &rarr; nouvelles faillites.</li>
+    </ul>
+
+    <div class="stats">
+      <div class="stat"><div class="n">&minus;90 %</div><span class="l">Valeur boursi&egrave;re perdue &agrave; Wall Street (1929-1932)</span></div>
+      <div class="stat"><div class="n">13 M</div><span class="l">Ch&ocirc;meurs aux &Eacute;tats-Unis en 1933, soit ~25 % des actifs</span></div>
+      <div class="stat"><div class="n">&minus;45 %</div><span class="l">Production industrielle am&eacute;ricaine, 1929-1932</span></div>
+      <div class="stat"><div class="n">&minus;60 %</div><span class="l">Commerce mondial, 1929-1932</span></div>
+      <div class="stat"><div class="n">30 M</div><span class="l">Ch&ocirc;meurs dans le monde au creux de la d&eacute;pression</span></div>
+    </div>
+
+    <div class="card warn">
+      <h4>Pi&egrave;ge &agrave; &eacute;viter</h4>
+      <p>Ne confonds pas le <strong>krach</strong> (l'effondrement boursier d'octobre 1929, un &eacute;v&eacute;nement) et la <strong>Grande D&eacute;pression</strong> (la crise &eacute;conomique et sociale mondiale des ann&eacute;es 1930, un processus). Le krach est le d&eacute;clencheur, pas la cause : les d&eacute;s&eacute;quilibres existaient avant lui.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s3" data-title="La crise devient mondiale">
+  <div class="sec-head">
+    <span class="num">03</span>
+    <h2>La crise devient mondiale</h2>
+    <label class="check"><input type="checkbox" data-sec="s3"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">Trois canaux de transmission : le capital, le commerce, la monnaie.</p>
+  <div class="body">
+    <h3>Pourquoi la crise se diffuse</h3>
+    <ul>
+      <li><strong>Rapatriement des capitaux</strong> : les banques am&eacute;ricaines, pour se renflouer, retirent les pr&ecirc;ts plac&eacute;s en Europe, surtout en Allemagne. L'&eacute;conomie europ&eacute;enne est asphyxi&eacute;e.</li>
+      <li><strong>Effondrement de la demande am&eacute;ricaine</strong> : les &Eacute;tats-Unis cessent d'acheter au reste du monde.</li>
+      <li><strong>Protectionnisme</strong> : le tarif <strong>Hawley-Smoot</strong> (1930) rel&egrave;ve massivement les droits de douane am&eacute;ricains ; chaque pays r&eacute;plique. Le commerce mondial se contracte de 60 %.</li>
+      <li><strong>Guerre des monnaies</strong> : d&eacute;valuations en cha&icirc;ne (livre sterling 1931, dollar 1933) pour rendre ses exportations moins ch&egrave;res, au d&eacute;triment des voisins. Repli sur des <strong>zones mon&eacute;taires</strong> ferm&eacute;es (bloc sterling, bloc or, autarcie allemande).</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s4" data-title="L'Europe fragilis&eacute;e">
+  <div class="sec-head">
+    <span class="num">04</span>
+    <h2>L'Europe fragilis&eacute;e</h2>
+    <label class="check"><input type="checkbox" data-sec="s4"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">Quand l'&eacute;conomie s'effondre, les r&eacute;gimes politiques vacillent.</p>
+  <div class="body">
+    <div class="grid2">
+      <div class="card">
+        <h4>Allemagne</h4>
+        <p>Le pays le plus touch&eacute;, car sa reprise reposait enti&egrave;rement sur les <strong>capitaux am&eacute;ricains</strong>. Faillite de la banque Danat en 1931 ; <strong>6 millions de ch&ocirc;meurs</strong> en 1932 (~30 % des actifs). Le chancelier Br&uuml;ning m&egrave;ne une politique de d&eacute;flation qui aggrave tout. La crise nourrit la radicalisation : le NSDAP passe de 2,6 % des voix (1928) &agrave; 37 % (juillet 1932) ; <strong>Hitler est nomm&eacute; chancelier le 30 janvier 1933</strong>.</p>
+      </div>
+      <div class="card">
+        <h4>Royaume-Uni</h4>
+        <p>D&eacute;j&agrave; fragilis&eacute; avant 1929 par ses industries anciennes. Il abandonne l'<strong>&eacute;talon-or en 1931</strong> et d&eacute;value la livre, ce qui permet une reprise relativement pr&eacute;coce, puis se replie sur son empire avec les accords d'<strong>Ottawa (1932)</strong> : la pr&eacute;f&eacute;rence imp&eacute;riale. Le r&eacute;gime parlementaire, lui, tient.</p>
+      </div>
+      <div class="card">
+        <h4>France</h4>
+        <p>Atteinte <strong>plus tard</strong> (1931-1932), car moins industrialis&eacute;e et moins int&eacute;gr&eacute;e aux flux financiers, mais elle y reste <strong>plus longtemps</strong>, jusqu'en 1938. Environ 400 000 ch&ocirc;meurs officiels, surtout du ch&ocirc;mage partiel et le renvoi des travailleurs immigr&eacute;s. Instabilit&eacute; minist&eacute;rielle, mont&eacute;e des <strong>ligues d'extr&ecirc;me droite</strong> et <strong>&eacute;meute du 6 f&eacute;vrier 1934</strong>, v&eacute;cue comme une menace fasciste sur la R&eacute;publique.</p>
+      </div>
+      <div class="card warn">
+        <h4>Le lien central du programme</h4>
+        <p>Partout la crise fragilise les d&eacute;mocraties : ch&ocirc;mage, appauvrissement des classes moyennes, discr&eacute;dit du parlementarisme, x&eacute;nophobie. Les r&eacute;gimes autoritaires se multiplient (Allemagne, Autriche, Espagne, Europe centrale). Retiens la cha&icirc;ne : <strong>crise &eacute;conomique &rarr; crise des d&eacute;mocraties &rarr; mont&eacute;e des totalitarismes &rarr; guerre</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s5" data-title="L'Am&eacute;rique latine">
+  <div class="sec-head">
+    <span class="num">05</span>
+    <h2>L'Am&eacute;rique latine</h2>
+    <label class="check"><input type="checkbox" data-sec="s5"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">Souvent n&eacute;glig&eacute;e en copie : c'est justement l&agrave; qu'on gagne des points.</p>
+  <div class="body">
+    <ul>
+      <li><strong>Des &eacute;conomies mono-exportatrices</strong>, d&eacute;pendantes d'un ou deux produits primaires vendus aux &Eacute;tats-Unis et &agrave; l'Europe : caf&eacute; (Br&eacute;sil), bl&eacute; et viande (Argentine), cuivre et salp&ecirc;tre (Chili), &eacute;tain (Bolivie), sucre (Cuba), p&eacute;trole (Venezuela).</li>
+      <li><strong>Effondrement des cours des mati&egrave;res premi&egrave;res</strong> : les prix chutent de 50 &agrave; 70 %. Les recettes d'exportation s'effondrent, les &Eacute;tats ne peuvent plus rembourser leur dette ext&eacute;rieure et la plupart font <strong>d&eacute;faut</strong> entre 1931 et 1933. Image embl&eacute;matique : le Br&eacute;sil br&ucirc;le son caf&eacute; invendu dans les locomotives.</li>
+      <li><strong>La r&eacute;ponse : l'ISI</strong>, <span class="term">industrialisation par substitution aux importations</span>. Ne pouvant plus importer, ces pays produisent eux-m&ecirc;mes ce qu'ils achetaient : textile, agroalimentaire, biens d'&eacute;quipement simples. L'&Eacute;tat devient interventionniste, protectionniste et nationaliste.</li>
+      <li><strong>Cons&eacute;quences politiques</strong> : coups d'&Eacute;tat en s&eacute;rie en 1930 (Br&eacute;sil, Argentine, P&eacute;rou, Chili) et r&eacute;gimes populistes autoritaires. <strong>Get&uacute;lio Vargas</strong> au Br&eacute;sil (1930, puis <em>Estado Novo</em> en 1937), la d&eacute;cennie infame en Argentine, <strong>L&aacute;zaro C&aacute;rdenas</strong> au Mexique qui nationalise le p&eacute;trole en 1938.</li>
+      <li><strong>Le rapport aux &Eacute;tats-Unis change</strong> : Roosevelt abandonne l'interventionnisme militaire pour la <strong>politique de bon voisinage</strong> (<em>Good Neighbor Policy</em>, 1933), plus commerciale que militaire.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s6" data-title="Le New Deal">
+  <div class="sec-head">
+    <span class="num">06</span>
+    <h2>Le New Deal</h2>
+    <label class="check"><input type="checkbox" data-sec="s6"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">&Eacute;tats-Unis, 1933-1938. Franklin Delano Roosevelt.</p>
+  <div class="body">
+    <p>Hoover (1929-1933), fid&egrave;le au lib&eacute;ralisme, refuse d'intervenir massivement : la crise s'aggrave et il est balay&eacute;. &Eacute;lu en novembre 1932, <strong>F. D. Roosevelt</strong> entre en fonction en mars 1933 avec une id&eacute;e neuve : l'&Eacute;tat doit intervenir directement dans l'&eacute;conomie. C'est une rupture avec le <em>laissez-faire</em>.</p>
+
+    <blockquote>
+      La seule chose dont nous devions avoir peur est la peur elle-m&ecirc;me.
+      <cite>F. D. Roosevelt, discours d'investiture, 4 mars 1933</cite>
+    </blockquote>
+
+    <h3>Les trois R</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4>Relief &mdash; secourir</h4>
+        <p>Fermeture puis assainissement des banques (<em>Emergency Banking Act</em>), garantie des d&eacute;p&ocirc;ts, aides d'urgence aux plus d&eacute;munis, grands travaux cr&eacute;ateurs d'emplois. Roosevelt s'adresse directement aux Am&eacute;ricains par la radio : les <strong>causeries au coin du feu</strong> restaurent la confiance.</p>
+      </div>
+      <div class="card">
+        <h4>Recovery &mdash; relancer</h4>
+        <p><strong>AAA</strong> (1933) : l'&Eacute;tat paie les agriculteurs pour r&eacute;duire leur production, afin de faire remonter les prix. <strong>NIRA / NRA</strong> : codes de concurrence, salaire minimum, semaine de 40 h. <strong>TVA</strong> : am&eacute;nagement de la vall&eacute;e du Tennessee (barrages, &eacute;lectrification), symbole de l'&Eacute;tat am&eacute;nageur. D&eacute;valuation du dollar en 1933.</p>
+      </div>
+      <div class="card">
+        <h4>Reform &mdash; r&eacute;former</h4>
+        <p>Second New Deal (1935) : le <strong>Wagner Act</strong> garantit le droit syndical ; le <strong>Social Security Act</strong> cr&eacute;e retraites et assurance ch&ocirc;mage, embryon d'un &Eacute;tat-providence am&eacute;ricain. La <strong>WPA</strong> finance des millions d'emplois publics, y compris pour les artistes et les &eacute;crivains.</p>
+      </div>
+      <div class="card">
+        <h4>Bilan nuanc&eacute;</h4>
+        <p><strong>Succ&egrave;s politique et social</strong> : la d&eacute;mocratie am&eacute;ricaine est sauv&eacute;e, Roosevelt r&eacute;&eacute;lu trois fois. <strong>R&eacute;sultats &eacute;conomiques partiels</strong> : le ch&ocirc;mage recule de 25 % &agrave; environ 14 %, mais remonte lors de la <strong>rechute de 1937-1938</strong>, quand Roosevelt r&eacute;duit trop t&ocirc;t les d&eacute;penses. C'est le <strong>r&eacute;armement, puis l'entr&eacute;e en guerre en 1941</strong>, qui ram&egrave;nent le plein emploi.</p>
+      </div>
+    </div>
+
+    <div class="defs">
+      <details class="def"><summary>Les oppositions au New Deal</summary><div class="in">Attaqu&eacute; &agrave; droite comme une d&eacute;rive socialiste et une atteinte &agrave; la libert&eacute; d'entreprise ; la <strong>Cour supr&ecirc;me</strong> invalide l'AAA et le NIRA en 1935-1936. Critiqu&eacute; aussi pour ses limites sociales : Noirs am&eacute;ricains, m&eacute;tayers du Sud et employ&eacute;s de maison sont largement exclus de ses protections.</div></details>
+      <details class="def"><summary>Le New Deal est-il keyn&eacute;sien ?</summary><div class="in"><strong>John Maynard Keynes</strong>, dans la <em>Th&eacute;orie g&eacute;n&eacute;rale</em> (1936), d&eacute;montre qu'en crise le march&eacute; ne se r&eacute;&eacute;quilibre pas seul : l'&Eacute;tat doit soutenir la <span class="term">demande</span> par la d&eacute;pense publique, quitte &agrave; s'endetter. Nuance attendue : le New Deal est <strong>empirique</strong>, il n'applique pas Keynes &mdash; il le pr&eacute;c&egrave;de et ne le rejoint que partiellement.</div></details>
+    </div>
+  </div>
+</section>
+
+<section id="s7" data-title="Le Front populaire">
+  <div class="sec-head">
+    <span class="num">07</span>
+    <h2>Le Front populaire</h2>
+    <label class="check"><input type="checkbox" data-sec="s7"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">France, 1936-1938. L&eacute;on Blum.</p>
+  <div class="body">
+    <h3>Naissance d'une coalition</h3>
+    <ul>
+      <li>Apr&egrave;s le <strong>6 f&eacute;vrier 1934</strong>, les gauches se rapprochent face au danger des ligues : <em>le fascisme ne passera pas</em>.</li>
+      <li>Coalition <strong>SFIO (Blum) + Parti radical (Daladier) + PCF (Thorez)</strong> ; le PCF soutient sans participer au gouvernement. Programme : <strong>le pain, la paix, la libert&eacute;</strong>.</li>
+      <li>Victoire aux <strong>l&eacute;gislatives d'avril-mai 1936</strong> ; <strong>L&eacute;on Blum</strong>, premier socialiste et premier juif chef du gouvernement fran&ccedil;ais, forme son cabinet en juin.</li>
+      <li>Une immense <strong>vague de gr&egrave;ves avec occupation d'usines</strong> (pr&egrave;s de 2 millions de gr&eacute;vistes en mai-juin 1936) impose l'urgence des n&eacute;gociations.</li>
+    </ul>
+
+    <h3>Les acquis</h3>
+    <ul>
+      <li><strong>Accords Matignon (7 juin 1936)</strong> : hausse des salaires de 7 &agrave; 15 %, reconnaissance des d&eacute;l&eacute;gu&eacute;s du personnel et de la libert&eacute; syndicale, conventions collectives.</li>
+      <li>Lois de juin 1936 : <strong>semaine de 40 heures</strong>, <strong>deux semaines de cong&eacute;s pay&eacute;s</strong>, scolarit&eacute; obligatoire jusqu'&agrave; 14 ans.</li>
+      <li>Dissolution des ligues ; nationalisation partielle des industries d'armement ; cr&eacute;ation de la <strong>SNCF</strong> (1937) ; Office du bl&eacute; pour garantir le prix aux paysans.</li>
+      <li>Une port&eacute;e <strong>culturelle</strong> majeure : d&eacute;couverte des loisirs et des vacances par le monde ouvrier (billets Lagrange, auberges de jeunesse).</li>
+    </ul>
+
+    <h3>Un &eacute;chec &eacute;conomique, une rupture sociale</h3>
+    <ul>
+      <li>La relance par la consommation &eacute;choue : la hausse des salaires est absorb&eacute;e par l'<strong>inflation</strong>, la production ne repart pas, la d&eacute;valuation du franc (septembre 1936) arrive trop tard.</li>
+      <li><strong>Fuite des capitaux</strong>, hostilit&eacute; du patronat et blocage du S&eacute;nat.</li>
+      <li>Divisions sur la <strong>guerre d'Espagne</strong> : Blum choisit la <strong>non-intervention</strong>, ce qui d&eacute;chire sa majorit&eacute;.</li>
+      <li>Blum d&eacute;missionne en juin 1937, la coalition se d&eacute;lite ; <strong>Daladier revient en 1938</strong> et abroge de fait les 40 heures.</li>
+      <li>Mais les acquis sociaux, eux, sont <strong>irr&eacute;versibles</strong> : 1936 reste une date fondatrice de la m&eacute;moire ouvri&egrave;re et de la protection sociale fran&ccedil;aise.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s8" data-title="Comparer les r&eacute;ponses">
+  <div class="sec-head">
+    <span class="num">08</span>
+    <h2>Comparer les r&eacute;ponses</h2>
+    <label class="check"><input type="checkbox" data-sec="s8"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">M&ecirc;me crise, m&ecirc;me recours &agrave; l'&Eacute;tat, destins politiques oppos&eacute;s.</p>
+  <div class="body">
+    <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Pays</th><th>R&eacute;ponse</th><th>Moyens</th><th>R&eacute;sultat politique</th></tr></thead>
+      <tbody>
+        <tr><td>&Eacute;tats-Unis</td><td>New Deal (1933-1938)</td><td>Grands travaux, r&eacute;gulation bancaire, droits sociaux, &Eacute;tat interventionniste</td><td>D&eacute;mocratie pr&eacute;serv&eacute;e et renforc&eacute;e</td></tr>
+        <tr><td>France</td><td>Front populaire (1936-1938)</td><td>Hausse des salaires, 40 h, cong&eacute;s pay&eacute;s, relance par la consommation</td><td>D&eacute;mocratie maintenue, &eacute;chec &eacute;conomique</td></tr>
+        <tr><td>Royaume-Uni</td><td>D&eacute;valuation et pr&eacute;f&eacute;rence imp&eacute;riale</td><td>Sortie de l'&eacute;talon-or (1931), accords d'Ottawa (1932)</td><td>D&eacute;mocratie stable, reprise pr&eacute;coce</td></tr>
+        <tr><td>Allemagne</td><td>&Eacute;conomie dirig&eacute;e nazie</td><td>Autarcie, grands travaux, r&eacute;armement massif, travail forc&eacute;, exclusion des Juifs</td><td>D&eacute;mocratie d&eacute;truite, r&eacute;gime totalitaire</td></tr>
+        <tr><td>Am&eacute;rique latine</td><td>Substitution aux importations</td><td>Protectionnisme, industrialisation dirig&eacute;e par l'&Eacute;tat</td><td>R&eacute;gimes populistes autoritaires (Vargas)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="card warn">
+      <h4>L'id&eacute;e &agrave; retenir</h4>
+      <p>Face &agrave; la m&ecirc;me crise, tous les &Eacute;tats choisissent <strong>l'intervention publique</strong> et le repli national : c'est la fin du lib&eacute;ralisme classique. Mais la nature du r&eacute;gime d&eacute;cide de tout. L&agrave; o&ugrave; la d&eacute;mocratie offre une r&eacute;ponse sociale cr&eacute;dible (&Eacute;tats-Unis, Royaume-Uni), elle survit ; l&agrave; o&ugrave; elle &eacute;choue et se discr&eacute;dite (Allemagne), le totalitarisme s'impose. La crise de 1929 est ainsi l'une des causes majeures de la Seconde Guerre mondiale.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s9" data-title="Notions, dates et sujets">
+  <div class="sec-head">
+    <span class="num">09</span>
+    <h2>Notions, dates et sujets</h2>
+    <label class="check"><input type="checkbox" data-sec="s9"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">&Agrave; savoir par c&oelig;ur la veille du contr&ocirc;le.</p>
+  <div class="body">
+    <h3>Notions cl&eacute;s</h3>
+    <div class="defs">
+      <details class="def"><summary>D&eacute;flation</summary><div class="in">Baisse durable et g&eacute;n&eacute;rale des prix. Elle alourdit les dettes, d&eacute;courage l'achat (on attend une baisse) et aggrave donc la crise. &Agrave; ne pas confondre avec la <strong>d&eacute;valuation</strong>, baisse volontaire de la valeur de la monnaie nationale.</div></details>
+      <details class="def"><summary>&Eacute;talon-or</summary><div class="in">Syst&egrave;me o&ugrave; la monnaie est convertible en or &agrave; taux fixe. Il interdit de relancer l'&eacute;conomie par la cr&eacute;ation mon&eacute;taire : y renoncer (R.-U. 1931, USA 1933) est la condition d'une reprise.</div></details>
+      <details class="def"><summary>Protectionnisme</summary><div class="in">Protection du march&eacute; national par les droits de douane et les quotas. G&eacute;n&eacute;ralis&eacute; apr&egrave;s 1930, il transforme une crise nationale en effondrement du commerce mondial.</div></details>
+      <details class="def"><summary>&Eacute;tat-providence</summary><div class="in">&Eacute;tat qui garantit aux citoyens une protection contre les risques sociaux (ch&ocirc;mage, vieillesse, maladie). Ses bases sont pos&eacute;es en 1935 aux &Eacute;tats-Unis et en 1936 en France.</div></details>
+      <details class="def"><summary>Populisme (Am&eacute;rique latine)</summary><div class="in">R&eacute;gime appuy&eacute; sur un chef charismatique s'adressant directement au peuple, m&ecirc;lant r&eacute;formes sociales, nationalisme &eacute;conomique et autoritarisme (Vargas, plus tard Per&oacute;n).</div></details>
+    </div>
+
+    <h3>Dates incontournables</h3>
+    <div class="chrono">
+      <div class="chrono-row key"><div class="d">24 oct. 1929</div><div class="e">Jeudi noir &agrave; Wall Street</div></div>
+      <div class="chrono-row"><div class="d">1930</div><div class="e">Tarif Hawley-Smoot ; coups d'&Eacute;tat au Br&eacute;sil et en Argentine</div></div>
+      <div class="chrono-row"><div class="d">1931</div><div class="e">Crise bancaire allemande ; le Royaume-Uni quitte l'&eacute;talon-or</div></div>
+      <div class="chrono-row key"><div class="d">30 janv. 1933</div><div class="e">Hitler chancelier</div></div>
+      <div class="chrono-row key"><div class="d">Mars 1933</div><div class="e">Roosevelt pr&eacute;sident : lancement du New Deal</div></div>
+      <div class="chrono-row"><div class="d">6 f&eacute;vr. 1934</div><div class="e">&Eacute;meute des ligues &agrave; Paris</div></div>
+      <div class="chrono-row"><div class="d">1935</div><div class="e">Second New Deal : Wagner Act, Social Security Act</div></div>
+      <div class="chrono-row key"><div class="d">Juin 1936</div><div class="e">Accords Matignon, 40 heures, cong&eacute;s pay&eacute;s</div></div>
+      <div class="chrono-row"><div class="d">1937-1938</div><div class="e">Rechute am&eacute;ricaine ; fin du Front populaire ; <em>Estado Novo</em> au Br&eacute;sil</div></div>
+    </div>
+
+    <h3>Sujets probables</h3>
+    <ul>
+      <li>La crise de 1929 et ses cons&eacute;quences dans le monde &mdash; plan : m&eacute;canismes / diffusion mondiale / r&eacute;ponses des &Eacute;tats.</li>
+      <li>Les d&eacute;mocraties face &agrave; la crise des ann&eacute;es 1930 &mdash; comparer New Deal et Front populaire, puis expliquer pourquoi l'Allemagne bascule.</li>
+      <li>Le Front populaire : un tournant ? &mdash; distinguer bilan &eacute;conomique (&eacute;chec) et bilan social (rupture durable).</li>
+      <li>&Eacute;tude de document : affiche du Front populaire, photographie de Dorothea Lange (<em>Migrant Mother</em>), discours de Roosevelt, caricature sur le protectionnisme.</li>
+    </ul>
+
+    <div class="card warn">
+      <h4>La phrase qui fait la diff&eacute;rence</h4>
+      <p>Termine ton d&eacute;veloppement par le lien de causalit&eacute; attendu : la crise &eacute;conomique mondiale n'a pas seulement appauvri les soci&eacute;t&eacute;s, elle a <strong>reconfigur&eacute; les r&eacute;gimes politiques</strong> &mdash; sauvant la d&eacute;mocratie l&agrave; o&ugrave; l'&Eacute;tat a su r&eacute;pondre socialement, la d&eacute;truisant l&agrave; o&ugrave; il a &eacute;chou&eacute;. C'est ce raisonnement, et non l'accumulation de dates, qui est &eacute;valu&eacute;.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s10" data-title="Quiz : 12 questions">
+  <div class="sec-head">
+    <span class="num">10</span>
+    <h2>Quiz : 12 questions</h2>
+    <label class="check"><input type="checkbox" data-sec="s10"> R&eacute;vis&eacute;</label>
+  </div>
+  <p class="sec-sub">Clique sur une carte pour r&eacute;v&eacute;ler la r&eacute;ponse. R&eacute;ponds &agrave; voix haute avant de retourner la carte.</p>
+  <div class="quiz">
+    <button class="flash" type="button"><span class="q">Quelle diff&eacute;rence entre le krach et la Grande D&eacute;pression ?</span><span class="a">Le krach est l'effondrement boursier d'octobre 1929, un &eacute;v&eacute;nement ponctuel ; la Grande D&eacute;pression est la crise &eacute;conomique et sociale mondiale des ann&eacute;es 1930, un processus long. Le krach d&eacute;clenche, il ne cause pas.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Qu'est-ce que l'achat &agrave; la marge ?</span><span class="a">Acheter des actions en n'apportant que ~10 % de la somme, le reste emprunt&eacute; &agrave; la banque et gag&eacute; sur les actions. &Agrave; la baisse, la banque r&eacute;clame son d&ucirc; : on vend en urgence, ce qui fait encore chuter les cours.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Explique la spirale d&eacute;flationniste en une phrase.</span><span class="a">Faillites bancaires &rarr; plus de cr&eacute;dit &rarr; faillites d'entreprises &rarr; ch&ocirc;mage &rarr; chute de la consommation &rarr; baisse des prix et de la production &rarr; nouvelles faillites.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Par quels canaux la crise am&eacute;ricaine devient-elle mondiale ?</span><span class="a">Le capital (rapatriement des pr&ecirc;ts am&eacute;ricains, surtout d'Allemagne), le commerce (chute de la demande + protectionnisme Hawley-Smoot de 1930) et la monnaie (d&eacute;valuations en cha&icirc;ne, blocs mon&eacute;taires ferm&eacute;s).</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Pourquoi l'Allemagne est-elle le pays europ&eacute;en le plus touch&eacute; ?</span><span class="a">Sa reprise des ann&eacute;es 1920 reposait enti&egrave;rement sur les capitaux am&eacute;ricains (plan Dawes), retir&eacute;s d&egrave;s 1929-1931. R&eacute;sultat : 6 millions de ch&ocirc;meurs en 1932, politique de d&eacute;flation de Br&uuml;ning, mont&eacute;e du NSDAP, Hitler chancelier le 30 janvier 1933.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Pourquoi la France est-elle touch&eacute;e plus tard mais plus longtemps ?</span><span class="a">Moins industrialis&eacute;e et moins int&eacute;gr&eacute;e aux flux financiers internationaux, elle n'est atteinte qu'en 1931-1932 ; mais son refus prolong&eacute; de d&eacute;valuer et sa politique de d&eacute;flation la maintiennent en crise jusqu'en 1938.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Qu'est-ce que l'ISI en Am&eacute;rique latine ?</span><span class="a">L'industrialisation par substitution aux importations : priv&eacute;s de devises, ces pays produisent eux-m&ecirc;mes ce qu'ils importaient (textile, agroalimentaire). L'&Eacute;tat devient interventionniste, protectionniste et nationaliste.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Deux exemples politiques latino-am&eacute;ricains n&eacute;s de la crise ?</span><span class="a">Get&uacute;lio Vargas au Br&eacute;sil (coup d'&Eacute;tat de 1930, puis <em>Estado Novo</em> autoritaire en 1937) et L&aacute;zaro C&aacute;rdenas au Mexique, qui nationalise le p&eacute;trole en 1938.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Que sont les trois R du New Deal ?</span><span class="a">Relief (secourir : banques assainies, aides d'urgence), Recovery (relancer : AAA, NIRA, TVA, d&eacute;valuation du dollar), Reform (r&eacute;former : Wagner Act et Social Security Act de 1935).</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Le New Deal a-t-il mis fin &agrave; la crise ?</span><span class="a">Non, pas enti&egrave;rement : le ch&ocirc;mage passe de 25 % &agrave; ~14 % mais remonte lors de la rechute de 1937-1938. C'est le r&eacute;armement puis l'entr&eacute;e en guerre en 1941 qui ram&egrave;nent le plein emploi. Sa r&eacute;ussite est surtout politique et sociale : la d&eacute;mocratie est sauv&eacute;e.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Trois acquis du Front populaire ?</span><span class="a">Accords Matignon du 7 juin 1936 (hausse des salaires de 7 &agrave; 15 %, libert&eacute; syndicale, conventions collectives), semaine de 40 heures, et deux semaines de cong&eacute;s pay&eacute;s.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+    <button class="flash" type="button"><span class="q">Pourquoi le Front populaire &eacute;choue-t-il &eacute;conomiquement ?</span><span class="a">La hausse des salaires est absorb&eacute;e par l'inflation, la production ne repart pas, la d&eacute;valuation du franc arrive trop tard (septembre 1936) ; s'y ajoutent la fuite des capitaux, l'hostilit&eacute; du patronat et les divisions sur la guerre d'Espagne. Les acquis sociaux, eux, restent.</span><span class="hint">Voir la r&eacute;ponse</span></button>
+  </div>
+</section>
+
+<p class="no-hit" id="nohit">Aucun r&eacute;sultat pour cette recherche.</p>
+
+<footer>Fiche de r&eacute;vision &middot; Histoire Terminale &middot; Crise de 1929 et r&eacute;ponses des &Eacute;tats (1929-1939)</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var KEY = "fiche1929.done.v1";
+  var sections = Array.prototype.slice.call(document.querySelectorAll("main section"));
+  var tocList = document.getElementById("toc-list");
+  var links = {};
+
+  /* --- sommaire --- */
+  sections.forEach(function(sec, i){
+    var li = document.createElement("li");
+    var a = document.createElement("a");
+    a.href = "#" + sec.id;
+    a.innerHTML = '<span class="n">' + String(i+1).padStart(2,"0") + '</span><span>' + sec.dataset.title + '</span>';
+    li.appendChild(a); tocList.appendChild(li);
+    links[sec.id] = a;
+  });
+
+  /* --- progression --- */
+  function load(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; }
+  }
+  function save(state){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+  var state = load();
+  var boxes = Array.prototype.slice.call(document.querySelectorAll(".check input"));
+
+  function render(){
+    var n = 0;
+    boxes.forEach(function(b){
+      var on = !!state[b.dataset.sec];
+      b.checked = on;
+      b.parentNode.classList.toggle("done", on);
+      if(links[b.dataset.sec]) links[b.dataset.sec].classList.toggle("done", on);
+      if(on) n++;
+    });
+    document.getElementById("count").textContent = n + " / " + boxes.length;
+    document.getElementById("bar").style.width = (boxes.length ? (n/boxes.length*100) : 0) + "%";
+  }
+  boxes.forEach(function(b){
+    b.addEventListener("change", function(){
+      state[b.dataset.sec] = b.checked;
+      save(state); render();
+    });
+  });
+  render();
+
+  document.getElementById("reset").addEventListener("click", function(){
+    state = {}; save(state); render();
+  });
+
+  /* --- scroll spy --- */
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          Object.keys(links).forEach(function(k){ links[k].classList.remove("on"); });
+          if(links[e.target.id]) links[e.target.id].classList.add("on");
+        }
+      });
+    }, { rootMargin: "-90px 0px -65% 0px" });
+    sections.forEach(function(s){ io.observe(s); });
+  }
+
+  /* --- flashcards --- */
+  Array.prototype.forEach.call(document.querySelectorAll(".flash"), function(c){
+    c.setAttribute("aria-expanded","false");
+    c.addEventListener("click", function(){
+      var open = c.classList.toggle("open");
+      c.setAttribute("aria-expanded", open ? "true" : "false");
+      c.querySelector(".hint").textContent = open ? "Masquer" : "Voir la réponse";
+    });
+  });
+
+  /* --- tout déplier --- */
+  var expand = document.getElementById("expand");
+  expand.addEventListener("click", function(){
+    var on = expand.getAttribute("aria-pressed") !== "true";
+    expand.setAttribute("aria-pressed", on ? "true" : "false");
+    expand.textContent = on ? "Tout replier" : "Tout déplier";
+    Array.prototype.forEach.call(document.querySelectorAll("details.def"), function(d){ d.open = on; });
+  });
+
+  /* --- recherche --- */
+  var q = document.getElementById("q");
+  var nohit = document.getElementById("nohit");
+  function strip(s){
+    return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  }
+  q.addEventListener("input", function(){
+    var v = strip(q.value.trim());
+    if(v.length < 2){
+      document.body.classList.remove("filtering");
+      nohit.classList.remove("show");
+      return;
+    }
+    document.body.classList.add("filtering");
+    var found = 0;
+    sections.forEach(function(s){
+      var hit = strip(s.textContent + " " + s.dataset.title).indexOf(v) !== -1;
+      s.classList.toggle("hit", hit);
+      if(hit) found++;
+    });
+    nohit.classList.toggle("show", found === 0);
+  });
+})();
+</script>
