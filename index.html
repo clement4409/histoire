@@ -321,7 +321,8 @@ footer{
 }
 
 @media (max-width:900px){
-  .layout{grid-template-columns:1fr;gap:0}
+  .layout{grid-template-columns:minmax(0,1fr);gap:0}
+  .toc,.toc-in,.toc h2,main{min-width:0}
   .toc{position:static;border-bottom:1px solid var(--rule)}
   .toc-in{position:static;padding:22px 0 18px}
   .toc ol{flex-direction:row;flex-wrap:wrap;gap:6px}
